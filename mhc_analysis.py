@@ -17,7 +17,7 @@ codes = {"Race": ["AAFA", "AFB", "AINDI", "AISC", "ALANAM", "AMIND", "CARB", "CA
          }
 
 # Change to adjust what category of race codes are used
-code_used = codes["Race"]
+code_used = codes["Broad_race"]
 
 
 # Method: process_file
@@ -274,6 +274,8 @@ def parse_args():
     parser.add_argument("-a", help="HLA-A XLSX file from Be The Match", type=str)
     parser.add_argument("-b", help="HLA-B XLSX file from Be The Match", type=str)
     parser.add_argument("-c", help="HLA-C XLSX file from Be The Match", type=str)
+    parser.add_argument("--code", help="Change from Broad_race codes to Race codes", action="store_true",
+                        default=False)
     parser.add_argument("-s", help="Save plot", type=str, default="...")
     parser.add_argument("--width", help="Width of plot area, if saved", type=float, default=11)
     parser.add_argument("--height", help="Height of plot area, if saved", type=float, default=8.5)
@@ -292,6 +294,10 @@ def parse_args():
 # Goal: Control the operation of program
 def main():
     args = parse_args()
+    # Change race code
+    global code_used
+    if args.code:
+        code_used = codes["Race"]
     # Collect HLA information
     hla_files = []
     if args.a:
